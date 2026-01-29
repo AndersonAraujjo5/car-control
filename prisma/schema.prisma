@@ -20,7 +20,7 @@ model Car {
   model     String     @db.VarChar(255)
   document  String
   createdAt DateTime   @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   histories history[]
   fuelFulls FuelFull[]
 }
@@ -32,7 +32,7 @@ model User {
   username  String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   createdAt DateTime   @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   histories history[]
   fuelFulls FuelFull[]
 }
@@ -47,7 +47,7 @@ model history {
   location  String
   fuel      Float
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   photos    Photo[]
   defects   Defect[]
 }
@@ -58,7 +58,7 @@ model Photo {
   history   history  @relation(fields: [historyId], references: [id])
   url       String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 }
 
 model Defect {
@@ -68,7 +68,7 @@ model Defect {
   name        String
   description String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime @updatedAt
 }
 
 model FuelFull {
@@ -81,5 +81,5 @@ model FuelFull {
   value     Float
   date      DateTime
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 }
