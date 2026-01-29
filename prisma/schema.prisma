@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Car {
+  id        Int        @id @default(autoincrement())
+  plate     String     @db.VarChar(8)
+  model     String     @db.VarChar(255)
+  document  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+  histories history[]
+  fuelFulls FuelFull[]
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  document  String
+  username  String     @unique @db.VarChar(255)
+  password  String     @db.VarChar(255)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+  histories history[]
+  fuelFulls FuelFull[]
+}
+
+model history {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  carId     Int
+  car       Car      @relation(fields: [carId], references: [id])
+  date      DateTime
+  location  String
+  fuel      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  photos    Photo[]
+  defects   Defect[]
+}
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  historyId Int
+  history   history  @relation(fields: [historyId], references: [id])
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model Defect {
+  id          Int      @id @default(autoincrement())
+  historyId   Int
+  history     history  @relation(fields: [historyId], references: [id])
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+}
+
+model FuelFull {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  carId     Int
+  car       Car      @relation(fields: [carId], references: [id])
+  liter     Float
+  value     Float
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
