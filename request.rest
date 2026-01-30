@@ -1,0 +1,119 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+# GET CAR
+GET {{BASE_URL}}/car?includes=histories&limit=10&offset=0
+
+###
+
+# GET CAR BY ID
+GET {{BASE_URL}}/car/3
+
+###
+
+POST {{BASE_URL}}/car 
+Content-Type: application/json
+
+{
+  "plate": "qvf-9115",
+  "model": "Titan 160 ano 2019",
+  "document": "123456789"
+}
+
+###
+
+PATCH {{BASE_URL}}/car/1
+Content-Type: application/json
+
+{
+  "model": "Fiat palio 2001"
+}
+
+###
+
+DELETE {{BASE_URL}}/car/3
+
+
+###################### USER #####################
+
+# GET USER
+GET {{BASE_URL}}/user
+
+###
+
+# GET USER BY ID
+GET {{BASE_URL}}/user/1
+
+###
+
+POST {{BASE_URL}}/user 
+Content-Type: application/json
+
+{
+  "name": "Fulano",
+  "document": "123456789",
+  "username": "fulano",
+  "password": "123456"
+}
+
+###
+
+PATCH {{BASE_URL}}/user/1
+Content-Type: application/json
+
+{
+  "name": "Anderson",
+  "document": "123456789",
+  "username": "fulano",
+  "password": "123456"
+}
+
+###
+
+DELETE {{BASE_URL}}/user/1
+
+
+###################### HISTORY #####################
+
+# GET HISTORY
+GET {{BASE_URL}}/history
+
+###
+
+# GET HISTORY BY ID
+GET {{BASE_URL}}/history/1
+
+###
+
+POST {{BASE_URL}}/history 
+Content-Type: application/json
+
+{
+  "km": 12354,
+  "carId": 1,
+  "userId": 2,
+  "date": "2026-06-30",
+  "location": "Cidade",
+  "status": "EXIT",
+  "fuel": 20
+ 
+}
+
+###
+
+PATCH {{BASE_URL}}/history/1
+Content-Type: application/json
+
+{
+  "km": 1234,
+  "car_id": 1,
+  "date": "2020-01-01",
+  "location": "Cidade",
+  "description": "Teste",
+  "fuel": 20,
+  "price": 20.00,
+  "liters": 20.00 
+}
+
+###
+
+DELETE {{BASE_URL}}/history/1

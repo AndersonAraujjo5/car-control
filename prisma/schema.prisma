@@ -20,7 +20,7 @@ model Car {
   model     String     @db.VarChar(255)
   document  String
   createdAt DateTime   @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   histories history[]
   fuelFulls FuelFull[]
 }
@@ -32,22 +32,29 @@ model User {
   username  String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   createdAt DateTime   @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   histories history[]
   fuelFulls FuelFull[]
 }
 
+enum HistoryStatus {
+  ENTRY
+  EXIT
+}
+
 model history {
-  id        Int      @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  user      User          @relation(fields: [userId], references: [id])
   carId     Int
-  car       Car      @relation(fields: [carId], references: [id])
+  car       Car           @relation(fields: [carId], references: [id])
   date      DateTime
   location  String
   fuel      Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime
+  km        Float
+  status    HistoryStatus @default(ENTRY)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
   photos    Photo[]
   defects   Defect[]
 }
@@ -58,7 +65,7 @@ model Photo {
   history   history  @relation(fields: [historyId], references: [id])
   url       String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 }
 
 model Defect {
@@ -67,8 +74,9 @@ model Defect {
   history     history  @relation(fields: [historyId], references: [id])
   name        String
   description String
+  data        String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime @updatedAt
 }
 
 model FuelFull {
@@ -78,8 +86,8 @@ model FuelFull {
   carId     Int
   car       Car      @relation(fields: [carId], references: [id])
   liter     Float
-  value     Float
+  price     Float
   date      DateTime
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 }
