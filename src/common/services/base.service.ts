@@ -17,11 +17,14 @@ export class BaseService<CreateDto, UpdateDto> {
   }
 
   async findAll(queryDto?: QueryDto) {
-    const { offset = 0, limit = 10 } = { ...queryDto };
+    const { offset = 0, limit = 10, orderBy = 'desc' } = { ...queryDto };
     const options = {
       skip: offset > 0 ? offset * limit : 0,
       take: +limit,
       include: queryDto?.includes,
+      orderBy: {
+        id: orderBy,
+      },
     };
     const result = await (this.prisma[this.modelName] as any).findMany({
       ...options,

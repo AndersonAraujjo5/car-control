@@ -1,20 +1,8 @@
-import {
-  IsNumberString,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
+import { QueryDto } from 'src/common/dto/query.dto';
 
-export class QueryHistoryDto {
+export class QueryHistoryDto extends QueryDto {
   @IsOptional()
   @IsString()
-  includes?: 'photos' | 'defects' | 'all';
-  @IsOptional()
-  @MinLength(0)
-  @IsNumberString()
-  offset?: number;
-  @IsOptional()
-  @MinLength(0)
-  @IsNumberString()
-  limit?: number;
+  declare includes?: 'photos' | 'defects' | 'all';
 }
