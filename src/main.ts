@@ -1,11 +1,12 @@
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { PrismaClientExceptionFilter } from './common/filter/prisma-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-
+  app.useGlobalFilters(new PrismaClientExceptionFilter());
   app.enableVersioning({
     type: VersioningType.URI,
   });

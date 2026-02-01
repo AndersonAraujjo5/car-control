@@ -17,9 +17,10 @@ export class BaseService<CreateDto, UpdateDto> {
   }
 
   async findAll(queryDto?: QueryDto) {
+    const { offset = 0, limit = 10 } = { ...queryDto };
     const options = {
-      skip: Number(queryDto?.offset) || 0,
-      take: Number(queryDto?.limit) || 10,
+      skip: offset > 0 ? offset * limit : 0,
+      take: +limit,
       include: queryDto?.includes,
     };
     const result = await (this.prisma[this.modelName] as any).findMany({
@@ -31,6 +32,7 @@ export class BaseService<CreateDto, UpdateDto> {
       total: await (this.prisma[this.modelName] as any).count(),
       offset: options.skip,
       limit: options.take,
+      show: result.length,
     };
   }
 
@@ -58,10 +60,10 @@ export class BaseService<CreateDto, UpdateDto> {
   async remove(id: number) {
     const result = await this.findOne(id);
 
-    if (!result) this.NotFoundException();
-
-    await (this.prisma[this.modelName] as any).delete({
-      where: { id },
+    await (this.prisma[this.modelName] as any).deleteMany({
+      where: {
+        id,
+      },
     });
     return result;
   }

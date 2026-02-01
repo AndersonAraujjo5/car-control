@@ -1,6 +1,6 @@
 import { IsNumberString, IsOptional, MinLength } from 'class-validator';
 
-export class QueryDto {
+export class QueryPhotoDto {
   @IsOptional()
   @MinLength(0)
   @IsNumberString()
@@ -9,6 +9,4 @@ export class QueryDto {
   @MinLength(0)
   @IsNumberString()
   limit?: number;
-  @IsOptional()
-  includes?: object = {};
 }

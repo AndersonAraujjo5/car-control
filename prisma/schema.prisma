@@ -64,6 +64,7 @@ model Photo {
   historyId Int
   history   history  @relation(fields: [historyId], references: [id])
   url       String
+  filename  String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -74,7 +75,7 @@ model Defect {
   history     history  @relation(fields: [historyId], references: [id])
   name        String
   description String
-  data        String
+  date        DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
