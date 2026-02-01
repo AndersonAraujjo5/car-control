@@ -1,4 +1,9 @@
-import { IsNumberString, IsOptional, MinLength } from 'class-validator';
+import {
+  IsNumberString,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class QueryDto {
   @IsOptional()
@@ -10,5 +15,8 @@ export class QueryDto {
   @IsNumberString()
   limit?: number;
   @IsOptional()
-  includes?: object = {};
+  includes?: object | string = {};
+  @IsOptional()
+  @IsString()
+  orderBy?: 'desc' | 'asc';
 }

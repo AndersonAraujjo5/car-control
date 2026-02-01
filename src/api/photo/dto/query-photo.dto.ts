@@ -1,12 +1,3 @@
-import { IsNumberString, IsOptional, MinLength } from 'class-validator';
+import { QueryDto } from 'src/common/dto/query.dto';
 
-export class QueryPhotoDto {
-  @IsOptional()
-  @MinLength(0)
-  @IsNumberString()
-  offset?: number;
-  @IsOptional()
-  @MinLength(0)
-  @IsNumberString()
-  limit?: number;
-}
+export class QueryPhotoDto extends QueryDto {}

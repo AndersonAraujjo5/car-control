@@ -1,21 +1,8 @@
-import {
-  IsNumberString,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
+import { QueryDto } from 'src/common/dto/query.dto';
 
-export class QueryCarDto {
+export class QueryCarDto extends QueryDto {
   @IsOptional()
   @IsString()
-  includes?: 'histories' | 'fuelFulls' | 'all';
-
-  @IsOptional()
-  @MinLength(0)
-  @IsNumberString()
-  offset?: number;
-  @IsOptional()
-  @MinLength(0)
-  @IsNumberString()
-  limit?: number;
+  declare includes?: 'histories' | 'fuelFulls' | 'all';
 }
