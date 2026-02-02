@@ -1,7 +1,7 @@
 @BASE_URL = http://localhost:3000/api/v1
 
 # GET CAR
-GET {{BASE_URL}}/car?model=fiat
+GET {{BASE_URL}}/car?model=t&orderBy=asc
 
 ###
 

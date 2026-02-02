@@ -3,7 +3,7 @@
 ###################### HISTORY #####################
 
 # GET HISTORY
-GET {{BASE_URL}}/history?includes=photos
+GET {{BASE_URL}}/history?status=
 
 ###
 
@@ -28,18 +28,11 @@ Content-Type: application/json
 
 ###
 
-PATCH {{BASE_URL}}/history/1
+PATCH {{BASE_URL}}/history/8
 Content-Type: application/json
 
 {
-  "km": 1234,
-  "car_id": 1,
-  "date": "2020-01-01",
-  "location": "Cidade",
-  "description": "Teste",
-  "fuel": 20,
-  "price": 20.00,
-  "liters": 20.00 
+  "status": "ENTRY"
 }
 
 ###

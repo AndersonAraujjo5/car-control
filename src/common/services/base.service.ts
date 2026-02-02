@@ -55,7 +55,7 @@ export class BaseService<CreateDto, UpdateDto> {
       where: { id },
       data,
     });
-
+    console.log(result);
     if (!result) this.NotFoundException();
 
     return result;

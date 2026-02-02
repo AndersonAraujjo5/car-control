@@ -30,9 +30,9 @@ export class HistoryController {
     const { date, location, status } = query;
     const mode = 'insensitive';
     const where = {
-      ...(date && { date: { equals: date, mode } }),
+      ...(date && { date: { contains: date, mode } }),
       ...(location && { location: { contains: location, mode } }),
-      ...(status && { status: { equals: status, mode } }),
+      ...(status && { status: { equals: status } }),
     };
     if (query?.includes === 'photos')
       return this.historyService.findAll({
@@ -53,7 +53,10 @@ export class HistoryController {
         where,
       });
 
-    return this.historyService.findAll();
+    return this.historyService.findAll({
+      ...query,
+      where,
+    });
   }
 
   @Get(':id')

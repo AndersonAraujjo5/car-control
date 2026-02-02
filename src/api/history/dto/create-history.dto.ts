@@ -1,5 +1,12 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
+import { HistoryStatus } from 'generated/prisma/enums';
 
 export class CreateHistoryDto {
   @IsNumber()
@@ -28,5 +35,6 @@ export class CreateHistoryDto {
   km: number;
 
   @IsNotEmpty()
-  status: 'ENTRY' | 'EXIT';
+  @IsEnum(HistoryStatus)
+  status?: 'ENTRY' | 'EXIT';
 }
