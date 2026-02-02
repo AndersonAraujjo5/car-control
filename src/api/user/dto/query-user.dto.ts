@@ -1,13 +1,13 @@
 import { IsOptional } from 'class-validator';
 import { QueryDto } from 'src/common/dto/query.dto';
 
-export class QueryCarDto extends QueryDto {
+export class QueryUserDto extends QueryDto {
   @IsOptional()
   declare includes?: 'histories' | 'fuelFulls' | 'all';
   @IsOptional()
-  plate?: string;
+  name?: string;
   @IsOptional()
-  model?: string;
+  username?: string;
   @IsOptional()
   document?: string;
 }

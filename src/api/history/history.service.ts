@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { QueryDto } from 'src/common/dto/query.dto';
 import { BaseService } from 'src/common/services/base.service';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { CreateHistoryDto } from './dto/create-history.dto';
-import { QueryHistoryDto } from './dto/query-history.dto';
 import { UpdateHistoryDto } from './dto/update-history.dto';
 
 @Injectable()
@@ -14,18 +14,19 @@ export class HistoryService extends BaseService<
     super(prismaService, 'history');
   }
 
-  findAllWithPhotos(queryHistoryDto?: QueryHistoryDto) {
-    const options = { ...queryHistoryDto, includes: { photos: true } };
-    return this.findAll(options);
+  findHistoryByCarId(id: number, query?: QueryDto) {
+    const response = this.findAll({
+      ...query,
+      where: { carId: id },
+    });
+    return response;
   }
 
-  findAllWithDefects(queryHistoryDto?: QueryHistoryDto) {
-    const options = { ...queryHistoryDto, includes: { defects: true } };
-    return this.findAll(options);
-  }
-
-  findAllWithAll(queryHistoryDto?: QueryHistoryDto) {
-    const options = { ...queryHistoryDto, includes: { all: true } };
-    return this.findAll(options);
+  findHistoryByUserId(id: number, query?: QueryDto) {
+    const response = this.findAll({
+      ...query,
+      where: { userId: id },
+    });
+    return response;
   }
 }

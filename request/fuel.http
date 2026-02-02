@@ -1,0 +1,35 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+
+
+GET {{BASE_URL}}/fuel?limit=2&offset=1
+
+###
+
+POST {{BASE_URL}}/fuel 
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "carId": 1,
+  "liter": 50.00,
+  "price": 50.00,
+  "date": "2020-01-01"
+}
+
+###
+
+PATCH {{BASE_URL}}/fuel/23
+Content-Type: application/json
+
+{
+  "userId": 23,
+  "carId": 23,
+  "liter": 20.00,
+  "price": 20.00,
+  "date": "2020-01-01"
+}
+
+###
+
+DELETE {{BASE_URL}}/fuel/23

@@ -27,12 +27,35 @@ export class CarController {
 
   @Get()
   findAll(@Query() query: QueryCarDto) {
+    const { plate, model, document } = query;
+    const mode = 'insensitive';
+    const where = {
+      ...(plate && { plate: { contains: plate, mode } }),
+      ...(model && { model: { contains: model, mode } }),
+      ...(document && { document: { contains: document, mode } }),
+    };
     if (query.includes === 'histories')
-      return this.carService.findAllWithHistories(query);
+      return this.carService.findAll({
+        ...query,
+        includes: { histories: true },
+        where,
+      });
+
     if (query.includes === 'fuelFulls')
-      return this.carService.findAllWithFuelFulls(query);
-    if (query.includes === 'all') return this.carService.findAllWithAll(query);
-    return this.carService.findAll();
+      return this.carService.findAll({
+        ...query,
+        includes: { fuelFulls: true },
+        where,
+      });
+
+    if (query.includes === 'all')
+      return this.carService.findAll({
+        ...query,
+        includes: { histories: true, fuelFulls: true },
+        where,
+      });
+
+    return this.carService.findAll({ ...query, where, includes: {} });
   }
 
   @Get(':id')
@@ -48,5 +71,17 @@ export class CarController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.carService.remove(+id);
+  }
+
+  @Get(':id/histories')
+  findHistory(@Param('id') id: number, @Query() query?: QueryCarDto) {
+    delete query?.includes;
+    return this.carService.findHistory(+id, query);
+  }
+
+  @Get(':id/fuel')
+  findFuelFull(@Param('id') id: number, @Query() query?: QueryCarDto) {
+    delete query?.includes;
+    return this.carService.findFuelFull(+id, query);
   }
 }

@@ -1,0 +1,41 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+
+# GET USER
+GET {{BASE_URL}}/user
+
+###
+GET {{BASE_URL}}/user/1/histories
+
+###
+
+# GET USER BY ID
+GET {{BASE_URL}}/user/1/fuel
+
+###
+
+POST {{BASE_URL}}/user 
+Content-Type: application/json
+
+{
+  "name": "Fulano",
+  "document": "123456789",
+  "username": "fulano",
+  "password": "123456"
+}
+
+###
+
+PATCH {{BASE_URL}}/user/1
+Content-Type: application/json
+
+{
+  "name": "Anderson",
+  "document": "123456789",
+  "username": "fulano",
+  "password": "123456"
+}
+
+###
+
+DELETE {{BASE_URL}}/user/1

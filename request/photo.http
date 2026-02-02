@@ -1,0 +1,23 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+
+###
+
+GET {{BASE_URL}}/photo?limit=5&offset=0
+
+###
+
+POST {{BASE_URL}}/photo 
+Content-Type: application/json
+
+{
+  "filename": "test.jpg",
+  "url": "https://www.google.com.br",
+  "historyId": 23
+}
+
+###
+
+DELETE {{BASE_URL}}/photo/23
+
+###

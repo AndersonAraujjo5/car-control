@@ -1,0 +1,47 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+###################### HISTORY #####################
+
+# GET HISTORY
+GET {{BASE_URL}}/history?includes=photos
+
+###
+
+# GET HISTORY BY ID
+GET {{BASE_URL}}/history/1
+
+###
+
+POST {{BASE_URL}}/history 
+Content-Type: application/json
+
+{
+  "km": 12354,
+  "carId": 8,
+  "userId": 2,
+  "date": "2026-06-30",
+  "location": "Empresa",
+  "status": "EXIT",
+  "fuel": 20
+ 
+}
+
+###
+
+PATCH {{BASE_URL}}/history/1
+Content-Type: application/json
+
+{
+  "km": 1234,
+  "car_id": 1,
+  "date": "2020-01-01",
+  "location": "Cidade",
+  "description": "Teste",
+  "fuel": 20,
+  "price": 20.00,
+  "liters": 20.00 
+}
+
+###
+
+DELETE {{BASE_URL}}/history/5

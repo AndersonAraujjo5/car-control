@@ -21,10 +21,11 @@ export class BaseService<CreateDto, UpdateDto> {
     const options = {
       skip: offset > 0 ? offset * limit : 0,
       take: +limit,
-      include: queryDto?.includes,
+      include: (queryDto as any)?.includes,
       orderBy: {
         id: orderBy,
       },
+      where: (queryDto as any)?.where,
     };
     const result = await (this.prisma[this.modelName] as any).findMany({
       ...options,

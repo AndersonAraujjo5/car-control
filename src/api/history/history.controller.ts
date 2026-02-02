@@ -26,13 +26,32 @@ export class HistoryController {
   }
 
   @Get()
-  findAll(@Query() query?: QueryHistoryDto) {
+  findAll(@Query() query: QueryHistoryDto) {
+    const { date, location, status } = query;
+    const mode = 'insensitive';
+    const where = {
+      ...(date && { date: { equals: date, mode } }),
+      ...(location && { location: { contains: location, mode } }),
+      ...(status && { status: { equals: status, mode } }),
+    };
     if (query?.includes === 'photos')
-      return this.historyService.findAllWithPhotos(query);
+      return this.historyService.findAll({
+        ...query,
+        includes: { photos: true },
+        where,
+      });
     if (query?.includes === 'defects')
-      return this.historyService.findAllWithDefects(query);
+      return this.historyService.findAll({
+        ...query,
+        includes: { defects: true },
+        where,
+      });
     if (query?.includes === 'all')
-      return this.historyService.findAllWithAll(query);
+      return this.historyService.findAll({
+        ...query,
+        includes: { photos: true, defects: true },
+        where,
+      });
 
     return this.historyService.findAll();
   }

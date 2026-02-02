@@ -19,4 +19,6 @@ export class QueryDto {
   @IsOptional()
   @IsString()
   orderBy?: 'desc' | 'asc';
+  @IsOptional()
+  where?: object = {};
 }
