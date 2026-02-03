@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { QueryDto } from 'src/common/dto/query.dto';
 
-export class QueryCarDto extends QueryDto {
+export class QueryUserDto extends QueryDto {
   @IsOptional()
   @ApiProperty({
     description: 'histories | fuelFulls | all',
@@ -12,18 +12,18 @@ export class QueryCarDto extends QueryDto {
   declare includes?: 'histories' | 'fuelFulls' | 'all';
   @IsOptional()
   @ApiProperty({
-    description: 'Plate must be a string',
-    example: 'ABC1234',
+    description: 'Name must be a string',
+    example: 'John Doe',
     required: false,
   })
-  plate?: string;
+  name?: string;
   @IsOptional()
   @ApiProperty({
-    description: 'Model must be a string',
-    example: 'Honda Civic',
+    description: 'Username must be a string',
+    example: 'johndoe',
     required: false,
   })
-  model?: string;
+  username?: string;
   @IsOptional()
   @ApiProperty({
     description: 'Document must be a string',

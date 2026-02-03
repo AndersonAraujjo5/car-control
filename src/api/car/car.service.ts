@@ -1,41 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { BaseService } from 'src/common/services/base.service';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
+import { FuelFullService } from '../fuel-full/fuel-full.service';
+import { HistoryService } from '../history/history.service';
 import { CreateCarDto } from './dto/create-car.dto';
 import { QueryCarDto } from './dto/query-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 
 @Injectable()
 export class CarService extends BaseService<CreateCarDto, UpdateCarDto> {
-  constructor(private readonly prismaService: PrismaService) {
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly historyService: HistoryService,
+    private readonly fuelFullService: FuelFullService,
+  ) {
     super(prismaService, 'car');
   }
 
-  findAllWithHistories(queryCarDto?: QueryCarDto) {
-    return this.findAll({
-      ...queryCarDto,
-      includes: {
-        histories: true,
-      },
-    });
+  findHistory(id: number, query?: QueryCarDto) {
+    return this.historyService.findHistoryByCarId(id, query);
   }
 
-  findAllWithFuelFulls(queryCarDto?: QueryCarDto) {
-    return this.findAll({
-      ...queryCarDto,
-      includes: {
-        fuelFulls: true,
-      },
-    });
-  }
-
-  findAllWithAll(queryCarDto?: QueryCarDto) {
-    return this.findAll({
-      ...queryCarDto,
-      includes: {
-        histories: true,
-        fuelFulls: true,
-      },
-    });
+  findFuelFull(id: number, query?: QueryCarDto) {
+    return this.fuelFullService.findFullByCarId(id, query);
   }
 }

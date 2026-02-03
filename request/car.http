@@ -1,0 +1,37 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+# GET CAR
+GET {{BASE_URL}}/car?model=t&orderBy=asc
+
+###
+
+GET {{BASE_URL}}/car/1/histories?includes=fuelFulls&limit=1&offset=0&orderBy=asc
+
+###
+
+# GET CAR BY ID
+GET {{BASE_URL}}/car/1/fuel?limit=2&offset=0
+
+###
+
+POST {{BASE_URL}}/car 
+Content-Type: application/json
+
+{
+  "plate": "qvf-9115",
+  "model": "Titan 160 ano 2019",
+  "document": "123456789"
+}
+
+###
+
+PATCH {{BASE_URL}}/car/1
+Content-Type: application/json
+
+{
+  "model": "Fiat palio 2001"
+}
+
+###
+
+DELETE {{BASE_URL}}/car/1

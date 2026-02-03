@@ -8,9 +8,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { QueryDto } from 'src/common/dto/query.dto';
 import { DefectService } from './defect.service';
 import { CreateDefectDto } from './dto/create-defect.dto';
+import { QueryDefectDto } from './dto/query-defect.dto';
 import { UpdateDefectDto } from './dto/update-defect.dto';
 
 @Controller({
@@ -26,8 +26,16 @@ export class DefectController {
   }
 
   @Get()
-  findAll(@Query() query: QueryDto) {
-    return this.defectService.findAll(query);
+  findAll(@Query() query: QueryDefectDto) {
+    const { date, name, description } = query;
+    return this.defectService.findAll({
+      ...query,
+      where: {
+        ...(date && { date: { equals: date } }),
+        ...(name && { name: { contains: name } }),
+        ...(description && { description: { contains: description } }),
+      },
+    });
   }
 
   @Get(':id')

@@ -1,0 +1,32 @@
+@BASE_URL = http://localhost:3000/api/v1
+
+
+GET {{BASE_URL}}/defect?limit=5&offset=0
+
+###
+
+POST {{BASE_URL}}/defect 
+Content-Type: application/json
+
+{
+  "historyId": 1,
+  "name": "Troca de oleo",
+  "description": "Troca de oleo de freio",
+  "date": "2020-01-01"
+}
+
+###
+
+PATCH {{BASE_URL}}/defect/23
+Content-Type: application/json
+
+{
+  "userId": 23,
+  "carId": 23,
+  "description": "Teste",
+  "date": "2020-01-01"
+}
+
+###
+
+DELETE {{BASE_URL}}/defect/23

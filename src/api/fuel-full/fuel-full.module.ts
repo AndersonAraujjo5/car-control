@@ -5,5 +5,6 @@ import { FuelFullService } from './fuel-full.service';
 @Module({
   controllers: [FuelFullController],
   providers: [FuelFullService],
+  exports: [FuelFullService],
 })
 export class FuelFullModule {}
