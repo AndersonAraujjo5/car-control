@@ -8,11 +8,13 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateHistoryDto } from './dto/create-history.dto';
 import { QueryHistoryDto } from './dto/query-history.dto';
 import { UpdateHistoryDto } from './dto/update-history.dto';
 import { HistoryService } from './history.service';
 
+@ApiTags('history')
 @Controller({
   path: 'history',
   version: '1',
